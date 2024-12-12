@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .customContainer {
+    @apply max-w-screen-lg w-[90%] mx-auto;
+  }
+
+  .btn {
+    @apply bg-purple-500 hover:bg-purple-400 font-bold py-3 px-5 rounded inline-block cursor-pointer transition-colors capitalize;
+  }
+}
