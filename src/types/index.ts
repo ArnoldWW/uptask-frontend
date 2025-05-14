@@ -1,5 +1,4 @@
 import { z } from "zod";
-import Task from "../../../backend/src/models/Task";
 
 /* TASKS */
 export const taskSchemaStatus = z.enum([
