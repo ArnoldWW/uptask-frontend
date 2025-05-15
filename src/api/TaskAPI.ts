@@ -1,11 +1,12 @@
 import api from "@/lib/axios";
 import { isAxiosError } from "axios";
-import { Project, Task, TaskFormData } from "@/types/index";
+import { Project, Task, TaskFormData, taskSchema } from "@/types/index";
 
 type TaskAPIType = {
   formData: TaskFormData;
   projectId: Project["_id"];
   taskId?: Task["_id"];
+  status?: string;
 };
 
 export async function createTask({
@@ -35,7 +36,17 @@ export async function getTaskById({
     const url = `/projects/${projectId}/tasks/${taskId}`;
     const { data } = await api.get(url);
 
-    return data;
+    const response = taskSchema.safeParse(data);
+
+    if (!response.success) {
+      console.log("Error en la validación de datos:", response.error);
+      throw new Error("Error en la validación de datos");
+    }
+    
+    // Si la validación es exitosa, puedes acceder a los datos validados
+    if (response.success) {
+      return response?.data;
+    }
   } catch (error) {
     if (isAxiosError(error) && error.response) {
       console.log(error.response.data.error);
@@ -83,3 +94,23 @@ export async function deleteTask({
     }
   }
 }
+
+/* update task status */
+export async function updateTaskStatus({
+  projectId,
+  taskId,
+  status
+}: Pick<TaskAPIType, "projectId" | "taskId" | "status">) {
+  try {
+    const url = `/projects/${projectId}/tasks/${taskId}/status`;
+    const { data } = await api.post<string>(url, { status });
+
+    return data;
+  } catch (error) {
+    if (isAxiosError(error) && error.response) {
+      console.log(error.response.data.error);
+
+      throw new Error(error.response.data.error);
+    }
+  }
+} 
