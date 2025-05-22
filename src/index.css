@@ -10,4 +10,12 @@
   .btn {
     @apply bg-purple-500 hover:bg-purple-400 font-bold py-3 px-5 rounded inline-block cursor-pointer transition-colors capitalize;
   }
+
+  .input {
+    @apply p-3 rounded border border-gray-200;
+  }
+
+  .link {
+    @apply text-sm text-white hover:underline;
+  }
 }

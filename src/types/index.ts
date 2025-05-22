@@ -1,5 +1,21 @@
 import { z } from "zod";
 
+/* AUTH & USERS */
+const authSchema = z.object({
+  _id: z.string(),
+  name: z.string(),
+  email: z.string(),
+  password: z.string(),
+  password_confirmation: z.string()
+});
+
+type Auth = z.infer<typeof authSchema>;
+export type UserLoginForm = Pick<Auth, "email" | "password">;
+export type UserRegistrationForm = Pick<
+  Auth,
+  "name" | "email" | "password" | "password_confirmation"
+>;
+
 /* TASKS */
 export const taskSchemaStatus = z.enum([
   "pending",
@@ -17,13 +33,13 @@ export const taskSchema = z.object({
   project: z.string(),
   status: taskSchemaStatus,
   createdAt: z.string(),
-  updatedAt: z.string(),
+  updatedAt: z.string()
 });
 
 export type Task = z.infer<typeof taskSchema>;
 export type TaskFormData = Pick<Task, "name" | "description">;
 
-/* Projects */
+/* PROJECTS */
 export const projectSchema = z.object({
   _id: z.string(),
   projectName: z.string(),

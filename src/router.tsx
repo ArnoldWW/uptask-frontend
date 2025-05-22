@@ -1,9 +1,13 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AppLayout from "@/layouts/AppLayout";
+import AuthLayout from "@/layouts/AuthLayout";
+
 import DashboardView from "@/views/DashboardView";
 import CreateProjectView from "@/views/CreateProjectView";
 import EditProjectView from "@/views/EditProjectView";
-import ProjectDetailsView from "./views/ProjectDetailsView";
+import ProjectDetailsView from "@/views/ProjectDetailsView";
+import LoginView from "@/views/auth/LoginView";
+import RegisterView from "@/views/auth/RegisterView";
 
 export default function Router() {
   return (
@@ -17,6 +21,11 @@ export default function Router() {
             path="/projects/:projectId/edit"
             element={<EditProjectView />}
           />
+        </Route>
+
+        <Route element={<AuthLayout />}>
+          <Route path="/auth/login" element={<LoginView />} />
+          <Route path="/auth/register" element={<RegisterView />} />
         </Route>
       </Routes>
     </BrowserRouter>
