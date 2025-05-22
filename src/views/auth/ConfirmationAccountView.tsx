@@ -6,7 +6,7 @@ import { useMutation } from "@tanstack/react-query";
 import { confirmAccount } from "@/api/AuthAPI";
 import toast from "react-hot-toast";
 
-export default function ConfirmAccountView() {
+export default function ConfirmationAccountView() {
   const [token, setToken] = useState<ConfirmToken["token"]>("");
 
   // mutation for confirm account
