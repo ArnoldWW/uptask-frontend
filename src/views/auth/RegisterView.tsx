@@ -1,6 +1,9 @@
 import { useForm } from "react-hook-form";
 import { UserRegistrationForm } from "@/types/index";
 import ErrorMessage from "@/components/ErrorMessage";
+import { useMutation } from "@tanstack/react-query";
+import { createAccount } from "@/api/AuthAPI";
+import toast from "react-hot-toast";
 
 export default function RegisterView() {
   const initialValues: UserRegistrationForm = {
@@ -18,9 +21,23 @@ export default function RegisterView() {
     formState: { errors }
   } = useForm<UserRegistrationForm>({ defaultValues: initialValues });
 
+  // mutation to create account
+  const { mutate } = useMutation({
+    mutationFn: createAccount,
+    onError: (error) => {
+      toast.error(error.message);
+    },
+    onSuccess: (data) => {
+      reset();
+      toast.success(data);
+    }
+  });
+
   const password = watch("password");
 
-  const handleRegister = (formData: UserRegistrationForm) => {};
+  const handleRegister = (formData: UserRegistrationForm) => {
+    mutate(formData);
+  };
 
   return (
     <>
