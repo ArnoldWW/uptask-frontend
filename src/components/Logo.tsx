@@ -1,8 +1,12 @@
 import { Link } from "react-router-dom";
 
-export default function Logo() {
+type LogoProps = {
+  URL?: string;
+};
+
+export default function Logo({ URL = "/" }: LogoProps) {
   return (
-    <Link to="/" className="block w-32">
+    <Link to={URL} className="block w-32">
       <img src="/logo.svg" alt="logo uptask" />
     </Link>
   );

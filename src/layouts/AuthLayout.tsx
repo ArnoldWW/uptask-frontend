@@ -8,7 +8,7 @@ export default function AuthLayout() {
   return (
     <div className="bg-gray-800 py-10 min-h-screen flex flex-col items-center">
       <div className="max-w-[500px] w-[90%] mx-auto flex flex-col items-center">
-        <Logo />
+        <Logo URL="/auth/login" />
 
         <div className="mt-10 w-full">
           <Outlet />
@@ -53,6 +53,18 @@ export default function AuthLayout() {
             <Link to="/auth/login" className="link">
               ¿Ya tienes una cuenta?. Ir a iniciar sesión.
             </Link>
+          )}
+
+          {/* forgot password */}
+          {currentPath === "/auth/forgot-password" && (
+            <>
+              <Link to="/auth/login" className="link">
+                ¿Ya tienes una cuenta?. Ir a iniciar sesión.
+              </Link>
+              <Link to="/auth/register" className="link">
+                ¿No tienes una cuenta?. Ir a crear cuenta.
+              </Link>
+            </>
           )}
         </nav>
       </div>

@@ -7,7 +7,7 @@ export default function AppLayout() {
     <div>
       <header className="bg-gray-800 py-5">
         <div className="customContainer flex flex-col lg:flex-row justify-between items-center">
-          <Logo />
+          <Logo URL="/" />
 
           <div>
             <NavMenu />
