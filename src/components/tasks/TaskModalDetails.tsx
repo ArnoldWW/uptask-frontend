@@ -15,28 +15,26 @@ import { taskStatus } from "@/types/index";
 
 export default function TaskModalDetails() {
   const navigate = useNavigate();
-  
+
   const params = useParams();
   const projectId = params.projectId!;
 
   // Obtener el id de la tarea desde la URL
   const location = window.location;
-  const queryParams = new URLSearchParams(location.search); 
+  const queryParams = new URLSearchParams(location.search);
   const taskId = queryParams.get("viewTask")?.toString();
 
   // Si no hay id de tarea, no mostrar el modal
   const show = taskId ? true : false;
 
   // Obtener los datos de la tarea desde la API
-  const {data, isError} = useQuery({
+  const { data, isError } = useQuery({
     queryKey: ["task", taskId],
-    queryFn: () => (
-      getTaskById({ projectId, taskId })
-    ),
+    queryFn: () => getTaskById({ projectId, taskId }),
     enabled: !!taskId,
     retry: false
   });
-  
+
   //useMutation for updating task status
   const queryClient = useQueryClient();
   const { mutate } = useMutation({
@@ -57,11 +55,11 @@ export default function TaskModalDetails() {
       navigate(location.pathname, { replace: true });
     }
   });
-  
+
   // HandleChangeStatus function to update the task status
   const handleChangeStatus = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const status = e.target.value as taskStatus;
-    const data = {projectId, taskId, status};
+    const data = { projectId, taskId, status };
     mutate(data);
   };
 
@@ -73,24 +71,35 @@ export default function TaskModalDetails() {
     }
   }, [isError, navigate, location.pathname]);
 
-  if(!data) return null;
-  
+  if (!data) return null;
+
   return (
     <Dialog
       open={show}
       onClose={() => navigate(location.pathname, { replace: true })}
       className="fixed inset-0 flex w-screen items-center justify-center bg-black/30 p-4"
     >
-      <DialogPanel className="max-w-lg space-y-3 bg-white p-10 rounded-md min-w-[300px] w-[90%]">
-        <span className="text-xs block text-gray-500">Actualizado el {formatDate(data.updatedAt)}</span>
-        <span className="text-xs block text-gray-500">Creado el {formatDate(data.createdAt)}</span>
-        <DialogTitle className="font-bold text-xl ">Detalles de la tarea</DialogTitle>
-        <Description>Informacion de la tarea</Description>
+      <DialogPanel className="max-w-lg flex flex-col gap-3 bg-white p-10 rounded min-w-[300px] w-[90%]">
+        <span className="text-xs block text-gray-500">
+          Actualizado el {formatDate(data.updatedAt)}
+        </span>
+        <span className="text-xs block text-gray-500">
+          Creado el {formatDate(data.createdAt)}
+        </span>
+        <DialogTitle className="font-bold text-xl ">
+          Detalles de la tarea
+        </DialogTitle>
+        <Description>
+          <strong>Titulo:</strong> {data.name}
+        </Description>
+        <Description>
+          <strong>Descripción:</strong> {data.description}
+        </Description>
 
         <div className="flex flex-col gap-2">
           {/* ESTADO DE LA TAREA */}
           <label htmlFor="status" className="font-bold">
-            Estado de la tarea
+            Estado de la tarea:
           </label>
           <select
             id="status"
@@ -102,7 +111,7 @@ export default function TaskModalDetails() {
               <option key={key} value={key}>
                 {value}
               </option>
-            ))} 
+            ))}
           </select>
         </div>
       </DialogPanel>

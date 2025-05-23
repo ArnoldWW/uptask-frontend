@@ -75,12 +75,12 @@ export default function EditTaskModal({ data, taskId }: EditTaskModalProps) {
       onClose={() => navigate(location.pathname, { replace: true })}
       className="fixed inset-0 flex w-screen items-center justify-center bg-black/30 p-4"
     >
-      <DialogPanel className="max-w-lg space-y-3 bg-white p-10 rounded-md min-w-[300px] w-[90%]">
+      <DialogPanel className="max-w-lg flex flex-col gap-3 bg-white p-10 rounded min-w-[300px] w-[90%]">
         <DialogTitle className="font-bold text-xl ">Editar tarea</DialogTitle>
         <Description>Modifica la información de la tarea</Description>
 
         <form
-          className="mt-10"
+          className="mt-1"
           onSubmit={handleSubmit(handleEditTask)}
           noValidate
         >
