@@ -3,6 +3,7 @@ import api from "@/lib/axios";
 import {
   ConfirmToken,
   ForgotPasswordForm,
+  NewPasswordForm,
   RequestConfirmationCodeForm,
   UserLoginForm,
   UserRegistrationForm
@@ -67,6 +68,43 @@ export async function requestNewPassword(formData: ForgotPasswordForm) {
   try {
     const url = "/auth/forgot-password";
     const { data } = await api.post(url, formData);
+    return data;
+  } catch (error) {
+    if (isAxiosError(error)) {
+      throw new Error(error.response?.data.error);
+    }
+  }
+}
+
+// function to validate token
+export async function validateToken(formData: ConfirmToken) {
+  try {
+    const url = "/auth/validate-token";
+    const { data } = await api.post(url, formData);
+    return data;
+  } catch (error) {
+    if (isAxiosError(error)) {
+      throw new Error(error.response?.data.error);
+    }
+  }
+}
+
+// function to update password
+export async function updatePasswordWithToken({
+  formData,
+  token
+}: {
+  formData: NewPasswordForm;
+  token: ConfirmToken["token"];
+}) {
+  try {
+    const url = `/auth/update-password/${token}`;
+
+    console.log(token);
+
+    const { data } = await api.post(url, formData);
+
+    console.log("data", data);
     return data;
   } catch (error) {
     if (isAxiosError(error)) {
