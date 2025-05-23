@@ -8,7 +8,8 @@ import EditProjectView from "@/views/EditProjectView";
 import ProjectDetailsView from "@/views/ProjectDetailsView";
 import LoginView from "@/views/auth/LoginView";
 import RegisterView from "@/views/auth/RegisterView";
-import ConfirmationAccountView from "./views/auth/ConfirmationAccountView";
+import ConfirmationAccountView from "@/views/auth/ConfirmationAccountView";
+import NewTokenView from "@/views/auth/NewTokenView";
 
 export default function Router() {
   return (
@@ -31,6 +32,7 @@ export default function Router() {
             path="/auth/confirm-account"
             element={<ConfirmationAccountView />}
           />
+          <Route path="/auth/request-new-token" element={<NewTokenView />} />
         </Route>
       </Routes>
     </BrowserRouter>

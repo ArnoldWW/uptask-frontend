@@ -26,6 +26,23 @@ export default function AuthLayout() {
               ¿Ya tienes una cuenta?. Ir a iniciar sesión.
             </Link>
           )}
+
+          {currentPath === "/auth/confirm-account" && (
+            <>
+              <Link to="/auth/request-new-token" className="link">
+                ¿No recibiste el código?. Solicitar nuevo código.
+              </Link>
+              <Link to="/auth/login" className="link">
+                ¿Ya tienes una cuenta?. Ir a iniciar sesión.
+              </Link>
+            </>
+          )}
+
+          {currentPath === "/auth/request-new-token" && (
+            <Link to="/auth/login" className="link">
+              ¿Ya tienes una cuenta?. Ir a iniciar sesión.
+            </Link>
+          )}
         </nav>
       </div>
     </div>

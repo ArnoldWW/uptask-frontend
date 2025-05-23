@@ -13,7 +13,12 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       <Router />
-      <Toaster />
+      <Toaster
+        toastOptions={{
+          duration: 3000,
+          position: "top-right"
+        }}
+      />
       <ReactQueryDevtools />
     </QueryClientProvider>
   </StrictMode>
