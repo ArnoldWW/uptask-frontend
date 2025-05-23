@@ -48,10 +48,10 @@ export default function NewTokenView() {
           <input
             id="email"
             type="email"
-            placeholder="Email de Registro"
+            placeholder="Correo electrónico de tu cuenta"
             className="w-full input"
             {...register("email", {
-              required: "El correo electronico es obligatorio",
+              required: "El correo electrónico es obligatorio",
               pattern: {
                 value: /\S+@\S+\.\S+/,
                 message: "E-mail no válido"

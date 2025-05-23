@@ -44,7 +44,7 @@ export default function DashboardView() {
       {data?.length ? (
         <ul
           role="list"
-          className="divide-y rounded-md divide border mt-10 bg-white"
+          className="divide-y rounded divide border mt-10 bg-white"
         >
           {data.map((project) => (
             <li key={project._id} className="flex justify-between gap-x-6 p-7">

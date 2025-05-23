@@ -49,13 +49,13 @@ export default function LoginView() {
           <input
             id="email"
             type="email"
-            placeholder="Correo Electronico (e.j. user@example.com)"
+            placeholder="Correo electrónico (e.j. user@example.com)"
             className="w-full input"
             {...register("email", {
-              required: "El correo electronico es obligatorio",
+              required: "El correo electrónico es obligatorio",
               pattern: {
                 value: /\S+@\S+\.\S+/,
-                message: "Correo electronico no válido"
+                message: "Correo electrónico no válido"
               }
             })}
           />

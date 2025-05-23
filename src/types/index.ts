@@ -18,6 +18,7 @@ export type UserRegistrationForm = Pick<
 >;
 export type ConfirmToken = Pick<Auth, "token">;
 export type RequestConfirmationCodeForm = Pick<Auth, "email">;
+export type ForgotPasswordForm = Pick<Auth, "email">;
 
 /* TASKS */
 export const taskSchemaStatus = z.enum([

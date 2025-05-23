@@ -39,7 +39,7 @@ export default function TaskCard({ task }: TaskCardProps) {
   });
 
   return (
-    <li className="p-5 bg-white border rounded-md flex justify-between gap-3">
+    <li className="p-5 bg-white border rounded flex justify-between gap-3">
       <div>
         <button type="button" className="font-bold text-left">
           {task.name}
