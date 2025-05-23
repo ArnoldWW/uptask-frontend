@@ -2,6 +2,7 @@ import { isAxiosError } from "axios";
 import api from "@/lib/axios";
 import {
   ConfirmToken,
+  ForgotPasswordForm,
   RequestConfirmationCodeForm,
   UserLoginForm,
   UserRegistrationForm
@@ -52,6 +53,19 @@ export async function requestNewConfirmationToken(
 export async function authenticateUser(formData: UserLoginForm) {
   try {
     const url = "/auth/login";
+    const { data } = await api.post(url, formData);
+    return data;
+  } catch (error) {
+    if (isAxiosError(error)) {
+      throw new Error(error.response?.data.error);
+    }
+  }
+}
+
+// function to request a new password
+export async function requestNewPassword(formData: ForgotPasswordForm) {
+  try {
+    const url = "/auth/forgot-password";
     const { data } = await api.post(url, formData);
     return data;
   } catch (error) {
