@@ -28,7 +28,7 @@ export default function Router() {
         </Route>
 
         <Route element={<AuthLayout />}>
-          <Route path="/auth/login" element={<LoginView />} index />
+          <Route index path="/auth/login" element={<LoginView />} />
           <Route path="/auth/register" element={<RegisterView />} />
           <Route
             path="/auth/confirm-account"
@@ -41,6 +41,8 @@ export default function Router() {
           />
           <Route path="/auth/new-password" element={<NewPasswordView />} />
         </Route>
+
+        <Route path="*" element={<p>Pagina no encontrada</p>} />
       </Routes>
     </BrowserRouter>
   );
