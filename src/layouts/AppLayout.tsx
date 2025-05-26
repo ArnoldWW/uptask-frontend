@@ -1,8 +1,36 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import Logo from "@/components/Logo";
 import { NavMenu } from "@/components/NavMenu";
+import { useAuth } from "@/hooks/useAuth";
+import { useEffect } from "react";
 
 export default function AppLayout() {
+  // Get the authenticated user data
+  const { data: user, isLoading, isError } = useAuth();
+  const navigate = useNavigate();
+
+  // Redirect to login page if there is an error
+  useEffect(() => {
+    if (isError) {
+      navigate("/auth/login");
+    }
+  }, [isError, navigate]);
+
+  // If the user is not authenticated and the page isn't loading, redirect to the login page
+  useEffect(() => {
+    if (!user && !isLoading) {
+      navigate("/auth/login");
+    }
+  }, [user, isLoading, navigate]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (isError) {
+    return null;
+  }
+
   return (
     <div>
       <header className="bg-gray-800 py-5">

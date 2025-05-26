@@ -116,3 +116,17 @@ export async function updatePasswordWithToken({
     }
   }
 }
+
+// function to get authenticated user
+export async function getAuthenticatedUser() {
+  try {
+    const url = "/auth/user";
+    const { data } = await api.get(url);
+
+    return data;
+  } catch (error) {
+    if (isAxiosError(error)) {
+      throw new Error(error.response?.data.error);
+    }
+  }
+}
