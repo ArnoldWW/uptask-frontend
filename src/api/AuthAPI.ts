@@ -55,6 +55,10 @@ export async function authenticateUser(formData: UserLoginForm) {
   try {
     const url = "/auth/login";
     const { data } = await api.post(url, formData);
+
+    // Store the token in local storage
+    localStorage.setItem("UPTASK_TOKEN", data);
+
     return data;
   } catch (error) {
     if (isAxiosError(error)) {

@@ -7,7 +7,7 @@ const authSchema = z.object({
   email: z.string(),
   password: z.string(),
   password_confirmation: z.string(),
-  token: z.string()
+  token: z.string(),
 });
 
 type Auth = z.infer<typeof authSchema>;
@@ -27,7 +27,7 @@ export const taskSchemaStatus = z.enum([
   "onHold",
   "inProgress",
   "underReview",
-  "completed"
+  "completed",
 ]);
 export type taskStatus = z.infer<typeof taskSchemaStatus>;
 
@@ -38,7 +38,7 @@ export const taskSchema = z.object({
   project: z.string(),
   status: taskSchemaStatus,
   createdAt: z.string(),
-  updatedAt: z.string()
+  updatedAt: z.string(),
 });
 
 export type Task = z.infer<typeof taskSchema>;
@@ -49,7 +49,7 @@ export const projectSchema = z.object({
   _id: z.string(),
   projectName: z.string(),
   clientName: z.string(),
-  description: z.string()
+  description: z.string(),
 });
 
 export const dashboardProjectSchema = z.array(
@@ -57,8 +57,8 @@ export const dashboardProjectSchema = z.array(
     _id: true,
     projectName: true,
     clientName: true,
-    description: true
-  })
+    description: true,
+  }),
 );
 
 export type Project = z.infer<typeof projectSchema>;
