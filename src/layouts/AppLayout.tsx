@@ -3,6 +3,7 @@ import Logo from "@/components/Logo";
 import { NavMenu } from "@/components/NavMenu";
 import { useAuth } from "@/hooks/useAuth";
 import { useEffect } from "react";
+import Loading from "@/components/Loading";
 
 export default function AppLayout() {
   // Get the authenticated user data
@@ -24,7 +25,7 @@ export default function AppLayout() {
   }, [user, isLoading, navigate]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   if (isError) {

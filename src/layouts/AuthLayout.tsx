@@ -2,6 +2,7 @@ import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import Logo from "@/components/Logo";
 import { useAuth } from "@/hooks/useAuth";
 import { useEffect } from "react";
+import Loading from "@/components/Loading";
 
 type LinkType = {
   to: string;
@@ -72,7 +73,7 @@ export default function AuthLayout() {
   }, [user, isLoading, navigate]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   return (
