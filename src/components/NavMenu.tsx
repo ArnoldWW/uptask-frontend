@@ -6,9 +6,30 @@ import {
   Transition
 } from "@headlessui/react";
 import { Bars3Icon } from "@heroicons/react/20/solid";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { User } from "@/types/index";
+import { useQueryClient } from '@tanstack/react-query';
 
-export const NavMenu = () => {
+type NavMenuProps = {
+  user: User;
+}
+
+export const NavMenu = ({ user }: NavMenuProps) => {
+  
+  // Navigate to the home page
+  const navigate = useNavigate();  
+
+  const queryClient = useQueryClient();
+  // Logout function
+  const handleLogout = async () => {
+    localStorage.removeItem("UPTASK_TOKEN");
+
+    await queryClient.removeQueries({ queryKey: ['user'] });
+
+    navigate("/auth/login");
+  };
+
+  
   return (
     <Popover className="relative">
       <PopoverButton className="inline-flex items-center gap-x-1 text-sm font-semibold leading-6 p-1 rounded bg-purple-500">
@@ -27,14 +48,14 @@ export const NavMenu = () => {
         <PopoverPanel className="absolute left-1/2 z-10 mt-5 flex w-screen lg:max-w-min -translate-x-1/2 lg:-translate-x-48">
           <div className="w-full lg:w-56 shrink rounded bg-white p-4 text-sm leading-6 shadow-sm border">
             <div className="flex flex-col gap-3">
-              <p>Usuario</p>
+              <p>{user.name} - {user.email}</p>
               <Link to="/profile" className="hover:underline">
                 Mi Perfil
               </Link>
               <Link to="/" className="hover:underline">
                 Mis Proyectos
               </Link>
-              <button className="btn" type="button" onClick={() => {}}>
+              <button className="btn" type="button" onClick={handleLogout}>
                 Cerrar Sesión
               </button>
             </div>

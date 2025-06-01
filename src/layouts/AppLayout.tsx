@@ -24,7 +24,7 @@ export default function AppLayout() {
     }
   }, [user, isLoading, navigate]);
 
-  if (isLoading) {
+  if (isLoading && !user) {
     return <Loading />;
   }
 
@@ -32,14 +32,16 @@ export default function AppLayout() {
     return null;
   }
 
-  return (
+  if( user ) return (
     <div>
       <header className="bg-gray-800 py-5">
         <div className="customContainer flex flex-col lg:flex-row justify-between items-center">
           <Logo URL="/" />
 
           <div>
-            <NavMenu />
+            <NavMenu 
+              user={user}
+            />
           </div>
         </div>
       </header>

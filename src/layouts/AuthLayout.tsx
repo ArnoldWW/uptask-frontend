@@ -67,7 +67,7 @@ export default function AuthLayout() {
 
   // If the user is authenticated, redirect to index page
   useEffect(() => {
-    if (user && !isLoading) {
+    if (!isLoading && user && user._id) {
       navigate("/");
     }
   }, [user, isLoading, navigate]);

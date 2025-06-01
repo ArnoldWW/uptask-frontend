@@ -5,8 +5,10 @@ import {
   ForgotPasswordForm,
   NewPasswordForm,
   RequestConfirmationCodeForm,
+  User,
   UserLoginForm,
-  UserRegistrationForm
+  UserRegistrationForm,
+  userSchema
 } from "../types";
 
 // function to create a new account
@@ -121,9 +123,21 @@ export async function updatePasswordWithToken({
 export async function getAuthenticatedUser() {
   try {
     const url = "/auth/user";
-    const { data } = await api.get(url);
+    const { data } = await api.get<User>(url);
 
-    return data;
+    // Validate with zod
+    const response = userSchema.safeParse(data);
+
+    console.log("response", response);
+    
+
+    if (!response.success) {
+      throw new Error("Invalid user data");
+    }
+
+    // If the response is valid, return the user data
+    return response.data;
+    
   } catch (error) {
     if (isAxiosError(error)) {
       throw new Error(error.response?.data.error);
