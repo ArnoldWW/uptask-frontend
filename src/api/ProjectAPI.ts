@@ -6,6 +6,7 @@ import {
 } from "@/types/index";
 import { isAxiosError } from "axios";
 
+// Create project
 export async function createProject(formData: ProjectFormData) {
   try {
     const { data } = await api.post("/projects", formData);
@@ -20,6 +21,7 @@ export async function createProject(formData: ProjectFormData) {
   }
 }
 
+// Get projects
 export async function getProjects() {
   try {
     const { data } = await api.get("/projects");
@@ -37,6 +39,7 @@ export async function getProjects() {
   }
 }
 
+// Get project by id
 export async function getProjectById(id: Project["_id"]) {
   try {
     const { data } = await api.get(`/projects/${id}`);
@@ -50,6 +53,7 @@ export async function getProjectById(id: Project["_id"]) {
   }
 }
 
+// Update project
 type UpdateProjectType = {
   formData: ProjectFormData;
   projectId: Project["_id"];
@@ -71,6 +75,7 @@ export async function updateProject({
   }
 }
 
+// Delete project
 export async function deleteProject(id: Project["_id"]) {
   try {
     const { data } = await api.delete(`/projects/${id}`);

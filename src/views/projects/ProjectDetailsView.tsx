@@ -2,8 +2,8 @@ import { getProjectById } from "@/api/ProjectAPI";
 import AddTaskModal from "@/components/tasks/AddTaskModal";
 import TaskList from "@/components/tasks/TaskList";
 import { useQuery } from "@tanstack/react-query";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
-import EditTaskData from "../components/tasks/EditTaskData";
+import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
+import EditTaskData from "../../components/tasks/EditTaskData";
 import TaskModalDetails from "@/components/tasks/TaskModalDetails";
 
 export default function ProjectDetailsView() {
@@ -33,6 +33,10 @@ export default function ProjectDetailsView() {
           >
             Agregar Tarea
           </button>
+
+          <Link to={location.pathname + "/team"} className="btn">
+            Gestionar Equipo
+          </Link>
         </nav>
 
         <TaskList tasks={data.tasks} />

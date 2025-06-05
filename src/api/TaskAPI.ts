@@ -9,6 +9,7 @@ type TaskAPIType = {
   status?: string;
 };
 
+// Create task
 export async function createTask({
   formData,
   projectId
@@ -42,7 +43,7 @@ export async function getTaskById({
       console.log("Error en la validación de datos:", response.error);
       throw new Error("Error en la validación de datos");
     }
-    
+
     // Si la validación es exitosa, puedes acceder a los datos validados
     if (response.success) {
       return response?.data;
@@ -113,4 +114,4 @@ export async function updateTaskStatus({
       throw new Error(error.response.data.error);
     }
   }
-} 
+}

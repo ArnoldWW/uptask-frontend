@@ -8,7 +8,7 @@
   }
 
   .btn {
-    @apply bg-purple-500 hover:bg-purple-400 font-bold py-3 px-5 rounded inline-block cursor-pointer transition-colors capitalize;
+    @apply bg-purple-500 hover:bg-purple-400 font-bold py-3 px-5 rounded inline-block cursor-pointer transition-colors capitalize text-purple-100;
   }
 
   .input {
@@ -18,4 +18,8 @@
   .link {
     @apply text-sm text-white hover:underline;
   }
+}
+
+::backdrop {
+  background-color: rgba(0, 0, 0, 0.3);
 }
