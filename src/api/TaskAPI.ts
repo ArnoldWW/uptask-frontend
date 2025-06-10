@@ -12,7 +12,7 @@ type TaskAPIType = {
 // Create task
 export async function createTask({
   formData,
-  projectId
+  projectId,
 }: Pick<TaskAPIType, "formData" | "projectId">) {
   try {
     const url = `/projects/${projectId}/tasks`;
@@ -31,12 +31,12 @@ export async function createTask({
 /* get tasks by id */
 export async function getTaskById({
   projectId,
-  taskId
+  taskId,
 }: Pick<TaskAPIType, "projectId" | "taskId">) {
   try {
     const url = `/projects/${projectId}/tasks/${taskId}`;
     const { data } = await api.get(url);
-
+    console.log(data);
     const response = taskSchema.safeParse(data);
 
     if (!response.success) {
@@ -44,7 +44,7 @@ export async function getTaskById({
       throw new Error("Error en la validación de datos");
     }
 
-    // Si la validación es exitosa, puedes acceder a los datos validados
+    // if response is success, return data
     if (response.success) {
       return response?.data;
     }
@@ -61,7 +61,7 @@ export async function getTaskById({
 export async function updateTask({
   projectId,
   taskId,
-  formData
+  formData,
 }: Pick<TaskAPIType, "projectId" | "taskId" | "formData">) {
   try {
     const url = `/projects/${projectId}/tasks/${taskId}`;
@@ -80,7 +80,7 @@ export async function updateTask({
 /* delete task */
 export async function deleteTask({
   projectId,
-  taskId
+  taskId,
 }: Pick<TaskAPIType, "projectId" | "taskId">) {
   try {
     const url = `/projects/${projectId}/tasks/${taskId}`;
@@ -100,11 +100,13 @@ export async function deleteTask({
 export async function updateTaskStatus({
   projectId,
   taskId,
-  status
+  status,
 }: Pick<TaskAPIType, "projectId" | "taskId" | "status">) {
   try {
     const url = `/projects/${projectId}/tasks/${taskId}/status`;
     const { data } = await api.post<string>(url, { status });
+
+    console.log(data);
 
     return data;
   } catch (error) {

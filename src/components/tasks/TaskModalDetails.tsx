@@ -3,7 +3,7 @@ import {
   Description,
   Dialog,
   DialogPanel,
-  DialogTitle
+  DialogTitle,
 } from "@headlessui/react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getTaskById, updateTaskStatus } from "@/api/TaskAPI";
@@ -19,20 +19,21 @@ export default function TaskModalDetails() {
   const params = useParams();
   const projectId = params.projectId!;
 
-  // Obtener el id de la tarea desde la URL
+  // Get the taskId from the URL
   const location = window.location;
   const queryParams = new URLSearchParams(location.search);
   const taskId = queryParams.get("viewTask")?.toString();
 
-  // Si no hay id de tarea, no mostrar el modal
+  // If the taskId is not present, show the modal
   const show = taskId ? true : false;
 
-  // Obtener los datos de la tarea desde la API
+  // Get task data from the API
   const { data, isError } = useQuery({
     queryKey: ["task", taskId],
     queryFn: () => getTaskById({ projectId, taskId }),
     enabled: !!taskId,
-    retry: false
+    retry: false,
+    refetchOnWindowFocus: false,
   });
 
   //useMutation for updating task status
@@ -53,7 +54,7 @@ export default function TaskModalDetails() {
 
       // Close the modal
       navigate(location.pathname, { replace: true });
-    }
+    },
   });
 
   // HandleChangeStatus function to update the task status
@@ -67,6 +68,7 @@ export default function TaskModalDetails() {
   useEffect(() => {
     if (isError) {
       toast.error("Error al cargar la tarea");
+      console.log(isError);
       navigate(location.pathname, { replace: true });
     }
   }, [isError, navigate, location.pathname]);
@@ -86,6 +88,19 @@ export default function TaskModalDetails() {
         <span className="text-xs block text-gray-500">
           Creado el {formatDate(data.createdAt)}
         </span>
+
+        {data.completedBy.length > 0 ? (
+          <ul className="flex flex-col gap-2">
+            {data.completedBy.map(({ user, status, _id }, index) => (
+              <li key={_id} className="text-xs block text-gray-500">
+                {index + 1}. Completado por{" "}
+                <strong>
+                  {user.name} ({statusTranslations[status]})
+                </strong>
+              </li>
+            ))}
+          </ul>
+        ) : null}
         <DialogTitle className="font-bold text-xl ">
           Detalles de la tarea
         </DialogTitle>
@@ -99,7 +114,7 @@ export default function TaskModalDetails() {
         <div className="flex flex-col gap-2">
           {/* ESTADO DE LA TAREA */}
           <label htmlFor="status" className="font-bold">
-            Estado de la tarea:
+            Estado de la tarea
           </label>
           <select
             id="status"

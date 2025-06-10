@@ -7,7 +7,7 @@ const authSchema = z.object({
   email: z.string(),
   password: z.string(),
   password_confirmation: z.string(),
-  token: z.string()
+  token: z.string(),
 });
 
 type Auth = z.infer<typeof authSchema>;
@@ -25,7 +25,7 @@ export type NewPasswordForm = Pick<Auth, "password" | "password_confirmation">;
 export const userSchema = authSchema.pick({
   _id: true,
   name: true,
-  email: true
+  email: true,
 });
 export type User = z.infer<typeof userSchema>;
 
@@ -35,7 +35,7 @@ export const taskSchemaStatus = z.enum([
   "onHold",
   "inProgress",
   "underReview",
-  "completed"
+  "completed",
 ]);
 export type taskStatus = z.infer<typeof taskSchemaStatus>;
 
@@ -45,8 +45,15 @@ export const taskSchema = z.object({
   description: z.string(),
   project: z.string(),
   status: taskSchemaStatus,
+  completedBy: z.array(
+    z.object({
+      _id: z.string(),
+      user: userSchema,
+      status: taskSchemaStatus,
+    }),
+  ),
   createdAt: z.string(),
-  updatedAt: z.string()
+  updatedAt: z.string(),
 });
 
 export type Task = z.infer<typeof taskSchema>;
@@ -58,7 +65,7 @@ export const projectSchema = z.object({
   projectName: z.string(),
   clientName: z.string(),
   description: z.string(),
-  manager: z.string(userSchema.pick({ _id: true }))
+  manager: z.string(userSchema.pick({ _id: true })),
 });
 
 export const dashboardProjectSchema = z.array(
@@ -67,8 +74,8 @@ export const dashboardProjectSchema = z.array(
     projectName: true,
     clientName: true,
     description: true,
-    manager: true
-  })
+    manager: true,
+  }),
 );
 
 export type Project = z.infer<typeof projectSchema>;
@@ -81,7 +88,7 @@ export type ProjectFormData = Pick<
 const teamMemberSchema = z.object({
   _id: z.string(),
   name: z.string(),
-  email: z.string()
+  email: z.string(),
 });
 export const TeamMemeberSchema = z.array(teamMemberSchema);
 export type TeamMember = z.infer<typeof teamMemberSchema>;
