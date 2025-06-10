@@ -12,8 +12,14 @@ import {
 } from "@headlessui/react";
 import { EllipsisVerticalIcon } from "@heroicons/react/20/solid";
 import toast from "react-hot-toast";
+import { useAuth } from "@/hooks/useAuth";
+import Loading from "../components/Loading";
 
 export default function DashboardView() {
+  // Get data from user
+  const { data: user, isLoading: authLoading } = useAuth();
+
+  // Query get all projects
   const { data, isLoading } = useQuery({
     queryKey: ["projects"],
     queryFn: getProjects
@@ -32,7 +38,7 @@ export default function DashboardView() {
     }
   });
 
-  if (isLoading) return <p>Cargando...</p>;
+  if (isLoading && authLoading) return <p>Cargando...</p>;
 
   return (
     <>
@@ -49,7 +55,17 @@ export default function DashboardView() {
           {data.map((project) => (
             <li key={project._id} className="flex justify-between gap-x-6 p-7">
               <div className="flex min-w-0 gap-x-4">
-                <div className="min-w-0 flex-auto space-y-2">
+                <div className="min-w-40 max-w-80 flex flex-col gap-2">
+                  {user?._id !== project.manager ? (
+                    <span className="text-purple-500 block text-sm">
+                      Invitado
+                    </span>
+                  ) : (
+                    <span className="text-green-500 block text-sm">
+                      Manager
+                    </span>
+                  )}
+
                   <Link
                     to={`/projects/${project._id}`}
                     className="cursor-pointer hover:underline text-2xl font-bold"
@@ -88,23 +104,28 @@ export default function DashboardView() {
                           Ver Proyecto
                         </Link>
                       </MenuItem>
-                      <MenuItem>
-                        <Link
-                          to={`/projects/${project._id}/edit`}
-                          className="block px-3 py-1 text-sm leading-6 hover:underline"
-                        >
-                          Editar Proyecto
-                        </Link>
-                      </MenuItem>
-                      <MenuItem>
-                        <button
-                          type="button"
-                          className="block px-3 py-1 text-sm leading-6 text-red-500 hover:underline"
-                          onClick={() => mutate(project._id)}
-                        >
-                          Eliminar Proyecto
-                        </button>
-                      </MenuItem>
+
+                      {user?._id === project.manager && (
+                        <>
+                          <MenuItem>
+                            <Link
+                              to={`/projects/${project._id}/edit`}
+                              className="block px-3 py-1 text-sm leading-6 hover:underline"
+                            >
+                              Editar Proyecto
+                            </Link>
+                          </MenuItem>
+                          <MenuItem>
+                            <button
+                              type="button"
+                              className="block px-3 py-1 text-sm leading-6 text-red-500 hover:underline"
+                              onClick={() => mutate(project._id)}
+                            >
+                              Eliminar Proyecto
+                            </button>
+                          </MenuItem>
+                        </>
+                      )}
                     </MenuItems>
                   </Transition>
                 </Menu>
