@@ -3,7 +3,7 @@ import {
   Description,
   Dialog,
   DialogPanel,
-  DialogTitle,
+  DialogTitle
 } from "@headlessui/react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getTaskById, updateTaskStatus } from "@/api/TaskAPI";
@@ -12,10 +12,12 @@ import toast from "react-hot-toast";
 import { formatDate } from "@/utils/index";
 import { statusTranslations } from "@/locales/es";
 import { taskStatus } from "@/types/index";
+import NotesPanel from "@/components/notes/NotesPanel";
 
 export default function TaskModalDetails() {
   const navigate = useNavigate();
 
+  // Get projectId from the URL
   const params = useParams();
   const projectId = params.projectId!;
 
@@ -33,7 +35,7 @@ export default function TaskModalDetails() {
     queryFn: () => getTaskById({ projectId, taskId }),
     enabled: !!taskId,
     retry: false,
-    refetchOnWindowFocus: false,
+    refetchOnWindowFocus: false
   });
 
   //useMutation for updating task status
@@ -54,7 +56,7 @@ export default function TaskModalDetails() {
 
       // Close the modal
       navigate(location.pathname, { replace: true });
-    },
+    }
   });
 
   // HandleChangeStatus function to update the task status
@@ -81,55 +83,70 @@ export default function TaskModalDetails() {
       onClose={() => navigate(location.pathname, { replace: true })}
       className="fixed inset-0 flex w-screen items-center justify-center bg-black/30 p-4"
     >
-      <DialogPanel className="max-w-lg flex flex-col gap-3 bg-white p-10 rounded min-w-[300px] w-[90%]">
-        <span className="text-xs block text-gray-500">
-          Actualizado el {formatDate(data.updatedAt)}
-        </span>
-        <span className="text-xs block text-gray-500">
-          Creado el {formatDate(data.createdAt)}
-        </span>
+      <div className="fixed inset-0 w-screen overflow-y-auto p-4">
+        <div className="flex min-h-full items-center justify-center">
+          <DialogPanel className="max-w-lg flex flex-col gap-3 bg-white p-10 rounded min-w-[300px] w-[90%] overflow-y-auto">
+            <span className="text-xs block text-gray-500">
+              Actualizado el {formatDate(data.updatedAt)}
+            </span>
+            <span className="text-xs block text-gray-500">
+              Creado el {formatDate(data.createdAt)}
+            </span>
 
-        {data.completedBy.length > 0 ? (
-          <ul className="flex flex-col gap-2">
-            {data.completedBy.map(({ user, status, _id }, index) => (
-              <li key={_id} className="text-xs block text-gray-500">
-                {index + 1}. Completado por{" "}
-                <strong>
-                  {user.name} ({statusTranslations[status]})
-                </strong>
-              </li>
-            ))}
-          </ul>
-        ) : null}
-        <DialogTitle className="font-bold text-xl ">
-          Detalles de la tarea
-        </DialogTitle>
-        <Description>
-          <strong>Titulo:</strong> {data.name}
-        </Description>
-        <Description>
-          <strong>Descripción:</strong> {data.description}
-        </Description>
+            <DialogTitle className="font-bold text-xl">
+              Detalles de la tarea
+            </DialogTitle>
 
-        <div className="flex flex-col gap-2">
-          {/* ESTADO DE LA TAREA */}
-          <label htmlFor="status" className="font-bold">
-            Estado de la tarea
-          </label>
-          <select
-            id="status"
-            className="w-full p-3 border-gray-300 border"
-            defaultValue={data.status}
-            onChange={handleChangeStatus}
-          >
-            {Object.entries(statusTranslations).map(([key, value]) => (
-              <option key={key} value={key}>
-                {value}
-              </option>
-            ))}
-          </select>
+            {data.completedBy.length > 0 ? (
+              <details>
+                <summary className="cursor-pointer font-bold">
+                  Listado de cambios
+                </summary>
+                <ul className="flex flex-col gap-2 pt-2 list-decimal list-inside">
+                  {data.completedBy.map(({ user, status, _id }) => (
+                    <li key={_id} className="text-xs text-gray-500">
+                      Completado por{" "}
+                      <strong>
+                        {user.name} ({statusTranslations[status]})
+                      </strong>
+                    </li>
+                  ))}
+                </ul>
+              </details>
+            ) : null}
+
+            <Description>
+              <strong>Titulo:</strong> {data.name}
+            </Description>
+            <Description>
+              <strong>Descripción:</strong> {data.description}
+            </Description>
+
+            <div className="flex flex-col gap-2">
+              {/* ESTADO DE LA TAREA */}
+              <label htmlFor="status" className="font-bold">
+                Estado de la tarea
+              </label>
+              <select
+                id="status"
+                className="w-full p-3 border-gray-300 border"
+                defaultValue={data.status}
+                onChange={handleChangeStatus}
+              >
+                {Object.entries(statusTranslations).map(([key, value]) => (
+                  <option key={key} value={key}>
+                    {value}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <hr className="border my-2" />
+
+            <NotesPanel notes={data.notes} />
+          </DialogPanel>
         </div>
-      </DialogPanel>
+      </div>
     </Dialog>
   );
 }

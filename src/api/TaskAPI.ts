@@ -12,7 +12,7 @@ type TaskAPIType = {
 // Create task
 export async function createTask({
   formData,
-  projectId,
+  projectId
 }: Pick<TaskAPIType, "formData" | "projectId">) {
   try {
     const url = `/projects/${projectId}/tasks`;
@@ -31,7 +31,7 @@ export async function createTask({
 /* get tasks by id */
 export async function getTaskById({
   projectId,
-  taskId,
+  taskId
 }: Pick<TaskAPIType, "projectId" | "taskId">) {
   try {
     const url = `/projects/${projectId}/tasks/${taskId}`;
@@ -61,7 +61,7 @@ export async function getTaskById({
 export async function updateTask({
   projectId,
   taskId,
-  formData,
+  formData
 }: Pick<TaskAPIType, "projectId" | "taskId" | "formData">) {
   try {
     const url = `/projects/${projectId}/tasks/${taskId}`;
@@ -80,7 +80,7 @@ export async function updateTask({
 /* delete task */
 export async function deleteTask({
   projectId,
-  taskId,
+  taskId
 }: Pick<TaskAPIType, "projectId" | "taskId">) {
   try {
     const url = `/projects/${projectId}/tasks/${taskId}`;
@@ -100,7 +100,7 @@ export async function deleteTask({
 export async function updateTaskStatus({
   projectId,
   taskId,
-  status,
+  status
 }: Pick<TaskAPIType, "projectId" | "taskId" | "status">) {
   try {
     const url = `/projects/${projectId}/tasks/${taskId}/status`;
