@@ -3,33 +3,31 @@ import {
   Popover,
   PopoverButton,
   PopoverPanel,
-  Transition
+  Transition,
 } from "@headlessui/react";
 import { Bars3Icon } from "@heroicons/react/20/solid";
 import { Link, useNavigate } from "react-router-dom";
 import { User } from "@/types/index";
-import { useQueryClient } from '@tanstack/react-query';
+import { useQueryClient } from "@tanstack/react-query";
 
 type NavMenuProps = {
   user: User;
-}
+};
 
 export const NavMenu = ({ user }: NavMenuProps) => {
-  
   // Navigate to the home page
-  const navigate = useNavigate();  
+  const navigate = useNavigate();
 
-  const queryClient = useQueryClient();
   // Logout function
-  const handleLogout = async () => {
+  const queryClient = useQueryClient();
+  const handleLogout = () => {
     localStorage.removeItem("UPTASK_TOKEN");
 
-    await queryClient.removeQueries({ queryKey: ['user'] });
+    queryClient.removeQueries({ queryKey: ["user"] });
 
     navigate("/auth/login");
   };
 
-  
   return (
     <Popover className="relative">
       <PopoverButton className="inline-flex items-center gap-x-1 text-sm font-semibold leading-6 p-1 rounded bg-purple-500">
@@ -48,7 +46,9 @@ export const NavMenu = ({ user }: NavMenuProps) => {
         <PopoverPanel className="absolute left-1/2 z-10 mt-5 flex w-screen lg:max-w-min -translate-x-1/2 lg:-translate-x-48">
           <div className="w-full lg:w-56 shrink rounded bg-white p-4 text-sm leading-6 shadow-sm border">
             <div className="flex flex-col gap-3">
-              <p>{user.name} - {user.email}</p>
+              <p>
+                {user.name} - {user.email}
+              </p>
               <Link to="/profile" className="hover:underline">
                 Mi Perfil
               </Link>
