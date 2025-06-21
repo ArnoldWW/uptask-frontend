@@ -1,63 +1,73 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, ReactNode } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import AddMemberForm from "./AddMemberForm";
 
-export default function AddMemberModal() {
+type ModalProps = {
+  openParam: string;
+  title: string;
+  children: ReactNode;
+  onClose?: () => void;
+};
+
+export default function Modal({
+  openParam,
+  title,
+  children,
+  onClose,
+}: ModalProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const navigate = useNavigate();
   const location = useLocation();
 
+  // Get query parameters from the URL
   const queryParams = new URLSearchParams(location.search);
-  const show = queryParams.get("addMember") ? true : false;
+  const show = queryParams.get(openParam) ? true : false;
 
+  // 1st useEffect to open the modal if "openParam" is in the URL
   useEffect(() => {
-    // Open the dialog when the show prop is true
     if (show && dialogRef.current && !dialogRef.current.open) {
       dialogRef.current.showModal();
-    }
-
-    // Close the dialog when the show prop is false
-    if (!show && dialogRef.current && dialogRef.current.open) {
+    } else if (!show && dialogRef.current?.open) {
       dialogRef.current.close();
     }
   }, [show]);
 
-  // Event lister when the dialog is closed with "esc" key
+  // 2nd useEffect to close the modal if "openParam" is removed from the URL and when clicked outside
   useEffect(() => {
     const dialog = dialogRef.current;
     if (!dialog) return;
 
-    // Reset the query param when the dialog is closed
     const handleClose = () => {
       navigate(location.pathname, { replace: true });
+      onClose?.();
     };
 
-    // Close the dialog when the user clicks outside of it
     const handleClickOutside = (e: MouseEvent) => {
-      if (dialog && e.target === dialog) {
-        dialog.close(); // Esto también dispara el evento close
+      if (e.target === dialog) {
+        dialog.close();
       }
     };
 
     dialog.addEventListener("close", handleClose);
-    dialog?.addEventListener("click", handleClickOutside);
+    dialog.addEventListener("click", handleClickOutside);
 
     return () => {
       dialog.removeEventListener("close", handleClose);
-      dialog?.removeEventListener("click", handleClickOutside);
+      dialog.removeEventListener("click", handleClickOutside);
     };
-  }, [navigate, location.pathname]);
+  }, [navigate, location.pathname, onClose]);
 
+  // Function to close the modal
   const closeDialog = () => {
     dialogRef.current?.close();
     navigate(location.pathname, { replace: true });
+    onClose?.();
   };
 
   return (
     <dialog ref={dialogRef} className="rounded z-10">
       <div className="flex flex-col gap-3 bg-white p-10 rounded">
         <div className="flex justify-between items-center">
-          <h2 className="font-bold text-xl">Agregar miembro al equipo</h2>
+          <h2 className="font-bold text-xl">{title}</h2>
           <button
             type="button"
             className="hover:bg-neutral-100 px-2 rounded"
@@ -66,13 +76,7 @@ export default function AddMemberModal() {
             &times;
           </button>
         </div>
-
-        <p>
-          Busca el usuario por su correo electronico y agrega al equipo del
-          proyecto
-        </p>
-
-        <AddMemberForm />
+        {children}
       </div>
     </dialog>
   );

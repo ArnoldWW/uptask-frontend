@@ -25,6 +25,7 @@ export type ChangePasswordForm = Pick<
   Auth,
   "current_password" | "password" | "password_confirmation"
 >;
+export type CheckPasswordForm = Pick<Auth, "password">;
 
 /* USERS */
 export const userSchema = authSchema.pick({

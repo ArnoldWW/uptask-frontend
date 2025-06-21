@@ -1,6 +1,7 @@
 import { isAxiosError } from "axios";
 import api from "@/lib/axios";
 import {
+  CheckPasswordForm,
   ConfirmToken,
   ForgotPasswordForm,
   NewPasswordForm,
@@ -8,7 +9,7 @@ import {
   User,
   UserLoginForm,
   UserRegistrationForm,
-  userSchema
+  userSchema,
 } from "../types";
 
 // function to create a new account
@@ -39,7 +40,7 @@ export async function confirmAccount(formData: ConfirmToken) {
 
 // function to request a new token
 export async function requestNewConfirmationToken(
-  formData: RequestConfirmationCodeForm
+  formData: RequestConfirmationCodeForm,
 ) {
   try {
     const url = "/auth/request-new-token";
@@ -98,7 +99,7 @@ export async function validateToken(formData: ConfirmToken) {
 // function to update password
 export async function updatePasswordWithToken({
   formData,
-  token
+  token,
 }: {
   formData: NewPasswordForm;
   token: ConfirmToken["token"];
@@ -129,7 +130,6 @@ export async function getAuthenticatedUser() {
     const response = userSchema.safeParse(data);
 
     console.log("response", response);
-    
 
     if (!response.success) {
       throw new Error("Invalid user data");
@@ -137,7 +137,20 @@ export async function getAuthenticatedUser() {
 
     // If the response is valid, return the user data
     return response.data;
-    
+  } catch (error) {
+    if (isAxiosError(error)) {
+      throw new Error(error.response?.data.error);
+    }
+  }
+}
+
+// Function to validate password when I want to delete a project
+export async function checkPassword(formData: CheckPasswordForm) {
+  try {
+    const url = "/auth/check-password";
+    const { data } = await api.post(url, formData);
+
+    return data;
   } catch (error) {
     if (isAxiosError(error)) {
       throw new Error(error.response?.data.error);
