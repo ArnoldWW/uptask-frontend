@@ -1,4 +1,4 @@
-import { getProjectById } from "@/api/ProjectAPI";
+import { getFullProjectById } from "@/api/ProjectAPI";
 import AddTaskModal from "@/components/tasks/AddTaskModal";
 import TaskList from "@/components/tasks/TaskList";
 import { useQuery } from "@tanstack/react-query";
@@ -18,7 +18,9 @@ export default function ProjectDetailsView() {
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ["project", projectId],
-    queryFn: () => getProjectById(projectId)
+    queryFn: () => getFullProjectById(projectId),
+    refetchOnWindowFocus: false,
+    retry: false
   });
 
   // Check if the user can edit the project

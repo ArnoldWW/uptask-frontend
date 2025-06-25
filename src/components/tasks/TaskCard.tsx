@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { Task } from "@/types/index";
+import { TaskProject } from "@/types/index";
 import {
   Menu,
   MenuButton,
@@ -12,13 +12,19 @@ import { useNavigate, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteTask } from "@/api/TaskAPI";
+import { useDraggable } from "@dnd-kit/core";
 
 type TaskCardProps = {
-  task: Task;
+  task: TaskProject;
   canEdit: boolean;
 };
 
 export default function TaskCard({ task, canEdit }: TaskCardProps) {
+  // UseDragable to make the task draggable
+  const { attributes, listeners, setNodeRef, transform } = useDraggable({
+    id: task._id
+  });
+
   const navigate = useNavigate();
 
   /* obtener el proyecto id de la url */
@@ -39,16 +45,26 @@ export default function TaskCard({ task, canEdit }: TaskCardProps) {
     }
   });
 
+  const dragableStyle = transform
+    ? {
+        transform: `translate3d(${transform?.x}px, ${transform?.y}px, 0)`,
+        padding: "1.25rem",
+        backgroundColor: "white",
+        border: "1px solid #e5e7eb",
+        borderRadius: "0.375rem"
+      }
+    : undefined;
+
   return (
     <li className="p-5 bg-white border rounded flex justify-between gap-3">
-      <div>
-        <button
-          type="button"
-          className="font-bold text-left"
-          onClick={() => navigate(location.pathname + "?viewTask=" + task._id)}
-        >
-          {task.name}
-        </button>
+      <div
+        className="flex-1 flex flex-col gap-1"
+        {...listeners}
+        {...attributes}
+        ref={setNodeRef}
+        style={dragableStyle}
+      >
+        <p className="font-bold text-left">{task.name}</p>
         <p className="text-sm text-gray-500">{task.description}</p>
       </div>
 
