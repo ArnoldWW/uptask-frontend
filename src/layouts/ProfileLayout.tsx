@@ -19,7 +19,7 @@ export default function ProfileLayout() {
           <NavLink key={link.to} to={link.to} end>
             {({ isActive }) => (
               <span
-                className={`p-2 border-b-2 ${
+                className={`p-2 border-b-2 select-none ${
                   isActive
                     ? "text-purple-500 border-purple-500"
                     : "border-b-transparent"

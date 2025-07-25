@@ -15,6 +15,10 @@
     @apply p-3 rounded border border-gray-200;
   }
 
+  .input {
+    @apply p-3 rounded border border-gray-200;
+  }
+
   .link {
     @apply text-sm text-white hover:underline;
   }
