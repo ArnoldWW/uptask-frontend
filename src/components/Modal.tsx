@@ -70,7 +70,7 @@ export default function Modal({
   return (
     <dialog ref={dialogRef} className="rounded z-10">
       <div className="flex flex-col gap-3 bg-white p-10 rounded">
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center gap-5">
           <h2 className="font-bold text-xl">{title}</h2>
           <button
             type="button"

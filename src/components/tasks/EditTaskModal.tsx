@@ -11,6 +11,7 @@ import TaskForm from "./TaskForm";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { updateTask } from "@/api/TaskAPI";
+import Modal from "../Modal";
 
 type EditTaskModalProps = {
   data: Task;
@@ -19,12 +20,6 @@ type EditTaskModalProps = {
 
 export default function EditTaskModal({ data, taskId }: EditTaskModalProps) {
   const navigate = useNavigate();
-
-  /* leer si el modal es visible */
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const modalEditTask = queryParams.get("editTask");
-  const show = modalEditTask ? true : false;
 
   /* obtener el proyecto id de la url */
   const params = useParams();
@@ -42,6 +37,8 @@ export default function EditTaskModal({ data, taskId }: EditTaskModalProps) {
     }
   });
 
+  console.log(data);
+
   /* tank stack query para actualizar la tarea */
   const queryClient = useQueryClient();
   const { mutate } = useMutation({
@@ -54,8 +51,8 @@ export default function EditTaskModal({ data, taskId }: EditTaskModalProps) {
         queryKey: ["project", projectId]
       });
       toast.success(data!);
-      reset();
       navigate(location.pathname, { replace: true });
+      reset();
     }
   });
 
@@ -70,26 +67,13 @@ export default function EditTaskModal({ data, taskId }: EditTaskModalProps) {
   };
 
   return (
-    <Dialog
-      open={show}
-      onClose={() => navigate(location.pathname, { replace: true })}
-      className="fixed inset-0 flex w-screen items-center justify-center bg-black/30 p-4"
-    >
-      <DialogPanel className="max-w-lg flex flex-col gap-3 bg-white p-10 rounded min-w-[300px] w-[90%]">
-        <DialogTitle className="font-bold text-xl ">Editar tarea</DialogTitle>
-        <Description>Modifica la información de la tarea</Description>
-
-        <form
-          className="mt-1"
-          onSubmit={handleSubmit(handleEditTask)}
-          noValidate
-        >
-          <TaskForm register={register} errors={errors} />
-          <button type="submit" className="btn">
-            Editar
-          </button>
-        </form>
-      </DialogPanel>
-    </Dialog>
+    <Modal openParam="editTask" title="Editar tarea">
+      <form className="mt-1" onSubmit={handleSubmit(handleEditTask)} noValidate>
+        <TaskForm register={register} errors={errors} />
+        <button type="submit" className="btn">
+          Editar
+        </button>
+      </form>
+    </Modal>
   );
 }

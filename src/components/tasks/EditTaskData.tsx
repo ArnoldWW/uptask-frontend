@@ -12,14 +12,21 @@ export default function EditTaskData() {
   const queryParams = new URLSearchParams(location.search);
   const taskId = queryParams.get("editTask")!;
 
-  const { data, isError } = useQuery({
+  const { data, isError, isFetching } = useQuery({
     queryKey: ["task", taskId],
     queryFn: () => getTaskById({ projectId, taskId }),
     enabled: !!taskId,
-    retry: false
+    retry: false,
+    staleTime: 0,
+    refetchOnMount: true
   });
+
+  console.log(data);
 
   if (isError) return <Navigate to="/404" />;
 
-  if (data) return <EditTaskModal data={data} taskId={taskId} />;
+  if (isFetching) return "Cargando...";
+
+  if (data)
+    return <EditTaskModal key={data.updatedAt} data={data} taskId={taskId} />;
 }
