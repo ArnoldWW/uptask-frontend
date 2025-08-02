@@ -1,6 +1,10 @@
 import { useRef, useEffect, ReactNode } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
+// OpenParam: string that represents the query parameter to open the modal
+// title: string that represents the title of the modal
+// children: ReactNode that represents the content of the modal
+// onClose?: () => void that represents the function to close the modal
 type ModalProps = {
   openParam: string;
   title: string;
@@ -12,7 +16,7 @@ export default function Modal({
   openParam,
   title,
   children,
-  onClose,
+  onClose
 }: ModalProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const navigate = useNavigate();

@@ -16,14 +16,14 @@ export default function DeleteProjectModal() {
   const navigate = useNavigate();
 
   const initialValues: CheckPasswordForm = {
-    password: "",
+    password: ""
   };
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
+    reset
   } = useForm({ defaultValues: initialValues });
 
   // Mutation for check password
@@ -31,7 +31,7 @@ export default function DeleteProjectModal() {
     mutationFn: checkPassword,
     onError: (error) => {
       toast.error(error.message);
-    },
+    }
   });
 
   // Query client for invalidating queries
@@ -48,7 +48,7 @@ export default function DeleteProjectModal() {
       queryClient.invalidateQueries({ queryKey: ["projects"] });
       toast.success(data);
       reset();
-    },
+    }
   });
 
   const handleForm = async (formData: CheckPasswordForm) => {
@@ -76,7 +76,7 @@ export default function DeleteProjectModal() {
             placeholder="Tu contraseña"
             className="input w-full"
             {...register("password", {
-              required: "La contraseña es obligatoria",
+              required: "La contraseña es obligatoria"
             })}
           />
           {errors.password && (

@@ -1,27 +1,16 @@
-import {
-  Description,
-  Dialog,
-  DialogPanel,
-  DialogTitle
-} from "@headlessui/react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import TaskForm from "./TaskForm";
 import { useForm } from "react-hook-form";
 import { TaskFormData } from "@/types/index";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { createTask } from "@/api/TaskAPI";
+import Modal from "../Modal";
 
 export default function AddTaskModal() {
   const navigate = useNavigate();
 
-  /* leer si el modal es visible */
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const modalTask = queryParams.get("newTask");
-  const show = modalTask ? true : false;
-
-  /* obtener el proyecto id de la url */
+  // Get the project ID from the URL
   const params = useParams();
   const projectId = params.projectId!;
 
@@ -39,6 +28,7 @@ export default function AddTaskModal() {
     defaultValues: initialValues
   });
 
+  // Mutation to create a new task
   const queryClient = useQueryClient();
   const { mutate } = useMutation({
     mutationFn: createTask,
@@ -63,28 +53,14 @@ export default function AddTaskModal() {
   };
 
   return (
-    <Dialog
-      open={show}
-      onClose={() => navigate(location.pathname, { replace: true })}
-      className="fixed inset-0 flex w-screen items-center justify-center bg-black/30 p-4"
-    >
-      <DialogPanel className="max-w-lg flex flex-col gap-3 bg-white p-10 rounded min-w-[300px] w-[90%]">
-        <DialogTitle className="font-bold text-xl">Nueva Tarea</DialogTitle>
-        <Description>
-          Llena el formulario para crear una nueva tarea
-        </Description>
-
-        <form
-          className="mt-1"
-          onSubmit={handleSubmit(handleCreateTask)}
-          noValidate
-        >
-          <TaskForm register={register} errors={errors} />
-          <button type="submit" className="btn">
-            Crear
-          </button>
-        </form>
-      </DialogPanel>
-    </Dialog>
+    <Modal openParam="newTask" title="Nueva Tarea">
+      <p>Llena el formulario para crear una nueva tarea</p>
+      <form onSubmit={handleSubmit(handleCreateTask)} noValidate>
+        <TaskForm register={register} errors={errors} />
+        <button type="submit" className="btn">
+          Crear
+        </button>
+      </form>
+    </Modal>
   );
 }
