@@ -2,6 +2,7 @@ import { getTaskById } from "@/api/TaskAPI";
 import { useQuery } from "@tanstack/react-query";
 import { Navigate, useLocation, useParams } from "react-router-dom";
 import EditTaskModal from "./EditTaskModal";
+import Loading from "../Loading";
 
 export default function EditTaskData() {
   /* project id */
@@ -25,7 +26,7 @@ export default function EditTaskData() {
 
   if (isError) return <Navigate to="/404" />;
 
-  if (isFetching) return "Cargando...";
+  if (isFetching) return <Loading />;
 
   if (data)
     return <EditTaskModal key={data.updatedAt} data={data} taskId={taskId} />;
