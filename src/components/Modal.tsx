@@ -69,7 +69,7 @@ export default function Modal({
 
   return (
     <dialog ref={dialogRef} className="rounded z-10">
-      <div className="flex flex-col gap-3 bg-white p-10 rounded">
+      <div className="flex flex-col gap-3 bg-white p-10 rounded md:min-w-[400px] max-w-[800px]">
         <div className="flex justify-between items-center gap-5">
           <h2 className="font-bold text-xl">{title}</h2>
           <button
@@ -80,6 +80,7 @@ export default function Modal({
             &times;
           </button>
         </div>
+
         {children}
       </div>
     </dialog>
