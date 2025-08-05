@@ -9,15 +9,9 @@ type ModalProps = {
   openParam: string;
   title: string;
   children: ReactNode;
-  onClose?: () => void;
 };
 
-export default function Modal({
-  openParam,
-  title,
-  children,
-  onClose
-}: ModalProps) {
+export default function Modal({ openParam, title, children }: ModalProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const navigate = useNavigate();
   const location = useLocation();
@@ -42,7 +36,6 @@ export default function Modal({
 
     const handleClose = () => {
       navigate(location.pathname, { replace: true });
-      onClose?.();
     };
 
     const handleClickOutside = (e: MouseEvent) => {
@@ -58,13 +51,12 @@ export default function Modal({
       dialog.removeEventListener("close", handleClose);
       dialog.removeEventListener("click", handleClickOutside);
     };
-  }, [navigate, location.pathname, onClose]);
+  }, [navigate, location.pathname]);
 
   // Function to close the modal
   const closeDialog = () => {
     dialogRef.current?.close();
     navigate(location.pathname, { replace: true });
-    onClose?.();
   };
 
   return (
