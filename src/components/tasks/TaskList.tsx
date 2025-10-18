@@ -104,7 +104,7 @@ export default function TaskList({ tasks, canEdit }: TaskListProps) {
             <div key={status} className="min-w-[300px] 2xl:min-w-0 2xl:w-1/5">
               <ul className="mt-5 flex flex-col gap-3">
                 <h3
-                  className={`capitalize rounded border p-3 border-t-4 font-bold ${statusStyles[status]}`}
+                  className={`capitalize rounded border border-gray-200 p-3 border-t-4 font-bold ${statusStyles[status]}`}
                 >
                   {statusTranslations[status]}
                 </h3>

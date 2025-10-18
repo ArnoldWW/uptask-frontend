@@ -3,7 +3,7 @@ import {
   Popover,
   PopoverButton,
   PopoverPanel,
-  Transition,
+  Transition
 } from "@headlessui/react";
 import { Bars3Icon } from "@heroicons/react/20/solid";
 import { Link, useNavigate } from "react-router-dom";
@@ -44,7 +44,7 @@ export const NavMenu = ({ user }: NavMenuProps) => {
         leaveTo="opacity-0 translate-y-1"
       >
         <PopoverPanel className="absolute left-1/2 z-10 mt-5 flex w-screen lg:max-w-min -translate-x-1/2 lg:-translate-x-48">
-          <div className="w-full lg:w-56 shrink rounded bg-white p-4 text-sm leading-6 shadow-sm border">
+          <div className="w-full lg:w-56 shrink rounded bg-white p-4 text-sm leading-6 border border-gray-200">
             <div className="flex flex-col gap-3">
               <p>
                 {user.name} - {user.email}

@@ -61,7 +61,7 @@ export default function ConfirmationAccountView() {
             {Array.from({ length: 6 }, (_, i) => (
               <PinInputField
                 key={i}
-                className="w-10 rounded border placeholder-white text-center p-2"
+                className="w-10 rounded border border-gray-200 placeholder-white text-center p-2"
               />
             ))}
           </PinInput>

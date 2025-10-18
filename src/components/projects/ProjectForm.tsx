@@ -13,7 +13,7 @@ export default function ProjectForm({ register, errors }: ProjectFormProps) {
       <div className="mb-5 flex flex-col gap-2">
         <input
           id="projectName"
-          className="w-full p-3 rounded border border-gray-200"
+          className="input"
           type="text"
           placeholder="Nombre del Proyecto"
           {...register("projectName", {
@@ -29,7 +29,7 @@ export default function ProjectForm({ register, errors }: ProjectFormProps) {
       <div className="mb-5 flex flex-col gap-2">
         <input
           id="clientName"
-          className="w-full p-3 rounded border border-gray-200"
+          className="input"
           type="text"
           placeholder="Nombre del Cliente"
           {...register("clientName", {
@@ -45,7 +45,7 @@ export default function ProjectForm({ register, errors }: ProjectFormProps) {
       <div className="mb-5 flex flex-col gap-2">
         <textarea
           id="description"
-          className="w-full p-3 rounded border border-gray-200"
+          className="input"
           placeholder="Descripción del Proyecto"
           {...register("description", {
             required: "Una descripción del proyecto es obligatoria"

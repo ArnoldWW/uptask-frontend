@@ -46,7 +46,7 @@ export default function CreateProjectView() {
 
       <div className="max-w-full md:max-w-[800px] md:mx-auto">
         <form
-          className="mt-10 bg-white border p-7 rounded"
+          className="mt-10 bg-white border border-gray-200 p-7 rounded"
           onSubmit={handleSubmit(handleForm)}
           noValidate
         >

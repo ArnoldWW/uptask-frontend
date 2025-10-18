@@ -63,7 +63,7 @@ export default function ProjectTeamView() {
         {data?.length ? (
           <ul
             role="list"
-            className="divide-y rounded divide border mt-10 bg-white"
+            className="divide-y rounded divide border border-gray-200 mt-10 bg-white"
           >
             {data.map((member) => (
               <li key={member._id} className="flex justify-between gap-x-6 p-7">
@@ -92,7 +92,7 @@ export default function ProjectTeamView() {
                       leaveFrom="transform opacity-100 scale-100"
                       leaveTo="transform opacity-0 scale-95"
                     >
-                      <MenuItems className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded bg-white py-2 shadow-sm focus:outline-none border">
+                      <MenuItems className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded bg-white py-2 focus:outline-none border border-gray-200">
                         <MenuItem>
                           <button
                             type="button"

@@ -56,7 +56,7 @@ export default function TaskCard({ task, canEdit }: TaskCardProps) {
     : undefined;
 
   return (
-    <li className="p-5 bg-white border rounded flex justify-between gap-3">
+    <li className="p-5 bg-white border border-gray-200 rounded flex justify-between gap-3">
       <div
         className="flex-1 flex flex-col gap-1"
         {...listeners}
@@ -82,7 +82,7 @@ export default function TaskCard({ task, canEdit }: TaskCardProps) {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <MenuItems className="absolute left-50 z-50 mt-2 w-56 origin-top-right rounded bg-white py-2 shadow-sm focus:outline-none border">
+          <MenuItems className="absolute left-50 z-50 mt-2 w-56 origin-top-right rounded bg-white py-2 focus:outline-none border border-gray-200">
             <MenuItem>
               <button
                 type="button"

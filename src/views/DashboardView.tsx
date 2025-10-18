@@ -7,7 +7,7 @@ import {
   MenuButton,
   MenuItem,
   MenuItems,
-  Transition,
+  Transition
 } from "@headlessui/react";
 import { EllipsisVerticalIcon } from "@heroicons/react/20/solid";
 import { useAuth } from "@/hooks/useAuth";
@@ -24,7 +24,7 @@ export default function DashboardView() {
   // Query get all projects
   const { data, isLoading } = useQuery({
     queryKey: ["projects"],
-    queryFn: getProjects,
+    queryFn: getProjects
   });
 
   if (isLoading && authLoading) return <Loading />;
@@ -39,7 +39,7 @@ export default function DashboardView() {
       {data?.length ? (
         <ul
           role="list"
-          className="divide-y rounded divide border mt-10 bg-white"
+          className="divide-y rounded divide border border-gray-200 mt-10 bg-white"
         >
           {data.map((project) => (
             <li key={project._id} className="flex justify-between gap-x-6 p-7">
@@ -84,7 +84,7 @@ export default function DashboardView() {
                     leaveFrom="transform opacity-100 scale-100"
                     leaveTo="transform opacity-0 scale-95"
                   >
-                    <MenuItems className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded bg-white py-2 shadow-sm focus:outline-none border">
+                    <MenuItems className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded bg-white py-2  focus:outline-none border border-gray-200">
                       <MenuItem>
                         <Link
                           to={`/projects/${project._id}`}
@@ -111,7 +111,7 @@ export default function DashboardView() {
                               onClick={() =>
                                 navigate(
                                   location.pathname +
-                                    `?deleteProject=${project._id}`,
+                                    `?deleteProject=${project._id}`
                                 )
                               }
                             >
