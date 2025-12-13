@@ -1,5 +1,5 @@
 import type { ConfirmToken, NewPasswordForm } from "@/types/index";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import ErrorMessage from "@/components/ErrorMessage";
 import { updatePasswordWithToken } from "@/api/AuthAPI";

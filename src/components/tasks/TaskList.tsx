@@ -6,7 +6,7 @@ import { DndContext, DragEndEvent } from "@dnd-kit/core";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { updateTaskStatus } from "@/api/TaskAPI";
 import toast from "react-hot-toast";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 
 type TaskListProps = {
   tasks: TaskProject[];

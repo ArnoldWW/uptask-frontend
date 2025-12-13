@@ -5,7 +5,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { ChangePasswordForm } from "@/types/index";
 import toast from "react-hot-toast";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 
 export default function ChangePasswordView() {
   const [showPasswords, setShowPasswords] = useState(false);
@@ -14,7 +14,7 @@ export default function ChangePasswordView() {
   const initialValues: ChangePasswordForm = {
     current_password: "",
     password: "",
-    password_confirmation: "",
+    password_confirmation: ""
   };
 
   const {
@@ -22,7 +22,7 @@ export default function ChangePasswordView() {
     handleSubmit,
     watch,
     formState: { errors },
-    reset,
+    reset
   } = useForm({ defaultValues: initialValues });
 
   const password = watch("password");
@@ -38,7 +38,7 @@ export default function ChangePasswordView() {
       toast.success(data);
       reset();
       handleLogout();
-    },
+    }
   });
 
   // Mutation function for update password
@@ -79,7 +79,7 @@ export default function ChangePasswordView() {
             placeholder="Contraseña actual"
             className="w-full input"
             {...register("current_password", {
-              required: "La contraseña actual es obligatoria",
+              required: "La contraseña actual es obligatoria"
             })}
           />
           {errors.current_password && (
@@ -97,8 +97,8 @@ export default function ChangePasswordView() {
               required: "El Nuevo Password es obligatorio",
               minLength: {
                 value: 8,
-                message: "La contraseña debe ser mínimo de 8 caracteres",
-              },
+                message: "La contraseña debe ser mínimo de 8 caracteres"
+              }
             })}
           />
           {errors.password && (
@@ -115,7 +115,7 @@ export default function ChangePasswordView() {
             {...register("password_confirmation", {
               required: "Este campo es obligatorio",
               validate: (value) =>
-                value === password || "Las contraseñas no coinciden",
+                value === password || "Las contraseñas no coinciden"
             })}
           />
           {errors.password_confirmation && (

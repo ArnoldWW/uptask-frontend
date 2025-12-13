@@ -1,4 +1,4 @@
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router";
 import Logo from "@/components/Logo";
 import { NavMenu } from "@/components/NavMenu";
 import { useAuth } from "@/hooks/useAuth";
@@ -32,31 +32,30 @@ export default function AppLayout() {
     return null;
   }
 
-  if( user ) return (
-    <div>
-      <header className="bg-gray-800 py-5">
-        <div className="customContainer flex flex-col lg:flex-row justify-between items-center">
-          <Logo URL="/" />
+  if (user)
+    return (
+      <div>
+        <header className="bg-gray-800 py-5">
+          <div className="customContainer flex flex-col lg:flex-row justify-between items-center">
+            <Logo URL="/" />
 
-          <div>
-            <NavMenu 
-              user={user}
-            />
+            <div>
+              <NavMenu user={user} />
+            </div>
           </div>
-        </div>
-      </header>
+        </header>
 
-      <section className="customContainer my-10 py-5">
-        <Outlet />
-      </section>
+        <section className="customContainer my-10 py-5">
+          <Outlet />
+        </section>
 
-      <footer className="bg-gray-800 text-white py-5">
-        <div className="customContainer">
-          <p className="text-sm font-bold">
-            Uptask &copy; {new Date().getFullYear()}
-          </p>
-        </div>
-      </footer>
-    </div>
-  );
+        <footer className="bg-gray-800 text-white py-5">
+          <div className="customContainer">
+            <p className="text-sm font-bold">
+              Uptask &copy; {new Date().getFullYear()}
+            </p>
+          </div>
+        </footer>
+      </div>
+    );
 }

@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Task } from "@/types/index";
 import { deleteNote } from "@/api/NoteAPI";

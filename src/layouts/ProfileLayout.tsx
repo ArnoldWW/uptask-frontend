@@ -1,14 +1,14 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router";
 
 const links = [
   {
     to: "/profile",
-    label: "Mi perfil",
+    label: "Mi perfil"
   },
   {
     to: "/profile/changePassword",
-    label: "Cambiar contraseña",
-  },
+    label: "Cambiar contraseña"
+  }
 ];
 
 export default function ProfileLayout() {

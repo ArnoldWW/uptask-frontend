@@ -1,5 +1,5 @@
 import { useRef, useEffect, ReactNode } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router";
 
 // OpenParam: string that represents the query parameter to open the modal
 // title: string that represents the title of the modal

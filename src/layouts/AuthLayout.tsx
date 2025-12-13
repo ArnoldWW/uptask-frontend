@@ -1,4 +1,4 @@
-import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Link, Outlet, useLocation, useNavigate } from "react-router";
 import Logo from "@/components/Logo";
 import { useAuth } from "@/hooks/useAuth";
 import { useEffect } from "react";

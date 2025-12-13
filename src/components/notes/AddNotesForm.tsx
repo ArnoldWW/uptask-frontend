@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import ErrorMessage from "../ErrorMessage";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createNote } from "@/api/NoteAPI";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import toast from "react-hot-toast";
 
 export default function AddNotesForm() {

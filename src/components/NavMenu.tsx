@@ -6,7 +6,7 @@ import {
   Transition
 } from "@headlessui/react";
 import { Bars3Icon } from "@heroicons/react/20/solid";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router";
 import { User } from "@/types/index";
 import { useQueryClient } from "@tanstack/react-query";
 

@@ -4,7 +4,7 @@ import { ConfirmToken } from "@/types/index";
 import { useMutation } from "@tanstack/react-query";
 import { confirmAccount } from "@/api/AuthAPI";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 
 export default function ConfirmationAccountView() {
   const [token, setToken] = useState<ConfirmToken["token"]>("");

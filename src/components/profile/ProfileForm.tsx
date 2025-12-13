@@ -4,7 +4,7 @@ import ErrorMessage from "@/components/ErrorMessage";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { updateUserProfile } from "@/api/ProfileAPI";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 
 type ProfileFormProps = {
   user: User;
@@ -16,7 +16,7 @@ export default function ProfileForm({ user }: ProfileFormProps) {
     register,
     handleSubmit,
     formState: { errors },
-    watch,
+    watch
   } = useForm({ defaultValues: user });
 
   //QueryCliente
@@ -33,11 +33,11 @@ export default function ProfileForm({ user }: ProfileFormProps) {
       toast.success(data);
 
       queryClient.invalidateQueries({
-        queryKey: ["user"],
+        queryKey: ["user"]
       });
 
       navigate("/");
-    },
+    }
   });
 
   const handleEditProfile = (formData: UserProfileForm) => mutate(formData);
@@ -66,7 +66,7 @@ export default function ProfileForm({ user }: ProfileFormProps) {
             placeholder="Tu Nombre"
             className="input"
             {...register("name", {
-              required: "Nombre de usuario es obligatoro",
+              required: "Nombre de usuario es obligatoro"
             })}
           />
           {errors.name && <ErrorMessage>{errors.name.message}</ErrorMessage>}
@@ -82,8 +82,8 @@ export default function ProfileForm({ user }: ProfileFormProps) {
               required: "EL correo electrónico es obligatorio",
               pattern: {
                 value: /\S+@\S+\.\S+/,
-                message: "Correo electrónico no válido",
-              },
+                message: "Correo electrónico no válido"
+              }
             })}
           />
           {errors.email && <ErrorMessage>{errors.email.message}</ErrorMessage>}

@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { addMemberToProjectTeam } from "@/api/TeamAPI";
 import { TeamMember } from "@/types/index";

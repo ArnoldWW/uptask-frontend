@@ -1,6 +1,6 @@
 import { getProjects } from "@/api/ProjectAPI";
 import { useQuery } from "@tanstack/react-query";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router";
 import { Fragment } from "react";
 import {
   Menu,
