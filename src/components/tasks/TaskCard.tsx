@@ -56,7 +56,7 @@ export default function TaskCard({ task, canEdit }: TaskCardProps) {
     : undefined;
 
   return (
-    <li className="p-5 bg-white border border-gray-200 rounded flex justify-between gap-3">
+    <li className="p-5 bg-white border border-gray-200 rounded flex justify-between gap-3 cursor-grab relative">
       <div
         className="flex-1 flex flex-col gap-1"
         {...listeners}
@@ -68,8 +68,11 @@ export default function TaskCard({ task, canEdit }: TaskCardProps) {
         <p className="text-sm text-gray-500">{task.description}</p>
       </div>
 
-      <Menu as="div" className="relative flex-none">
-        <MenuButton className="-m-2.5 block p-2 text-gray-900 rounded-full hover:bg-neutral-100">
+      <Menu as="div" className="relative">
+        <MenuButton
+          className="-m-2.5 block p-2 text-gray-900 rounded-full hover:bg-neutral-100 cursor-pointer"
+          role="button"
+        >
           <span className="sr-only">opciones</span>
           <EllipsisVerticalIcon className="h-5 w-5" aria-hidden="true" />
         </MenuButton>
@@ -82,7 +85,7 @@ export default function TaskCard({ task, canEdit }: TaskCardProps) {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <MenuItems className="absolute left-50 z-50 mt-2 w-56 origin-top-right rounded bg-white py-2 focus:outline-none border border-gray-200">
+          <MenuItems className="absolute left-[0%] z-50 mt-2 w-56 origin-top-left rounded bg-white py-2 focus:outline-none border border-gray-200 shadow-md">
             <MenuItem>
               <button
                 type="button"
