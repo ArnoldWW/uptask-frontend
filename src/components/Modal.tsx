@@ -60,13 +60,13 @@ export default function Modal({ openParam, title, children }: ModalProps) {
   };
 
   return (
-    <dialog ref={dialogRef} className="rounded z-10 translate-y-50 mx-auto">
+    <dialog ref={dialogRef} className="rounded z-10 mx-auto my-auto">
       <div className="flex flex-col gap-3 bg-white p-10 rounded md:min-w-[400px] max-w-[800px]">
         <div className="flex justify-between items-center gap-5">
           <h2 className="font-bold text-xl">{title}</h2>
           <button
             type="button"
-            className="hover:bg-neutral-100 px-2 rounded"
+            className="hover:bg-neutral-100 cursor-pointer px-2 rounded"
             onClick={closeDialog}
           >
             &times;
